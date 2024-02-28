@@ -6,9 +6,9 @@ from audio_processing.transcribe_audio import transcribe_audio
 # splitting audio file into 30 second segments.
 refactor_audio('./EarningsCall.wav','Audio_files')
 
-# client = create_openai_client()
+client = create_openai_client()
 
-# transcription = transcribe_audio(client, './TrimmedAudio.wav')
+transcribe_audio(client, './Audio_files')
 
 # summary = abstract_summary_extraction(client, transcription)
 
