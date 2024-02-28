@@ -8,11 +8,11 @@ refactor_audio('./EarningsCall.wav','Audio_files')
 
 client = create_openai_client()
 
-transcribe_audio(client, './Audio_files')
+transcription = transcribe_audio(client, './Audio_files')
 
-# summary = abstract_summary_extraction(client, transcription)
+summary = abstract_summary_extraction(client, transcription)
 
-# print(summary)
+print(summary)
 
 
 

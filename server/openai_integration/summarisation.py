@@ -13,5 +13,5 @@ def abstract_summary_extraction(client, transcription):
             }
         ]
     )
-    
+
     return response.choices[0].message.content
