@@ -13,5 +13,6 @@ def transcribe_audio(client, folder_path):
                 file=file
           )
         transcribed_files.append(transcription.text)
-    print("".join(transcribed_files))
+        
+    return "".join(transcribed_files)
 
