@@ -1,0 +1,10 @@
+.HeaderContainer {
+    height: 5rem;
+    border: solid 2px blue;
+  }
+  .Header {
+      font-family: 'Raleway';
+      font-size: large;
+      text-align: center;
+    }
+
