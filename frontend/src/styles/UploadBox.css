@@ -1,0 +1,28 @@
+.UploadBox{
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2px;
+    border: 1px solid black;
+    background-color: white;
+    height: 10rem;
+}
+
+.image {
+    border-radius: 4px;
+    height: 100px;
+    width: 150px;
+    padding-left: 120px;
+    padding-top: 3px;
+}
+
+.ClickOrUpload {
+    font-family: 'Raleway', serif;
+    font-size: x-small;
+    text-align: center;
+}
+
+.MaxFileSize {
+    font-family: 'Raleway', serif;
+    font-size: xx-small;
+    text-align: center;
+}
