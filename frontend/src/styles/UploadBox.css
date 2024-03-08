@@ -26,3 +26,13 @@
     font-size: xx-small;
     text-align: center;
 }
+
+.UploadText{    
+    font-family: 'Raleway', serif;
+    font-size: x-small;
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
