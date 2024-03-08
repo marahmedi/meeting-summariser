@@ -1,0 +1,16 @@
+.HeaderContainer {
+    height: 5rem;
+  }
+  .Header {
+      font-family: 'Raleway', serif;
+      font-size: large;
+      text-align: center;
+    }
+
+  .SubHeader {
+      font-family: 'Raleway', serif;
+      font-size: x-small;
+      text-align: center;
+      color: darkgrey;
+  }
+
