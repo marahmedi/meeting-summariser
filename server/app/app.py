@@ -18,9 +18,13 @@ def upload_audio_file():
             return jsonify({'error': 'No selected audio file'}), 400
 
         # Replace 'audio_uploads' with your desired directory for audio files
-        audio_file.save('SET DIRECTORY HERE' + audio_file.filename)
-
-        return jsonify({'message': 'Audio file uploaded successfully'}), 200
+        # audio_file.save('../' + audio_file.filename)
+        audio_file.save('' + audio_file.filename)
+        print('Audio file saved successfully')
+        messages = ["Hello from our server", "Hi from our server", 
+                    "Greetings from our server", "Welcome from our server",
+                      "Good day from our server"]
+        return jsonify(messages), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

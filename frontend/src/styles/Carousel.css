@@ -1,0 +1,51 @@
+/* src/components/Carousel.css */
+.text-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    border: 2px solid #ddd; /* Add a border */
+    border-radius: 10px; /* Optional: Add rounded corners */
+    
+  }
+  
+  .carousel-parent {
+    position: relative;
+    margin:0 auto;
+    width: 80vh; /* Set the width equal to the height for a square box */
+    max-width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    }  
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .left-arrow {
+    position: absolute;
+    left: 0; 
+    transform: translateY(-50%);
+  }
+  
+  .right-arrow {
+    position: absolute;  
+    right: 0;
+    transform: translateY(-50%);
+  }
+
+  .download-button {
+    position: absolute;  
+    left: 38%;
+    transform: translateX(-50%);
+    transform: translateY(-50%);
+  }
