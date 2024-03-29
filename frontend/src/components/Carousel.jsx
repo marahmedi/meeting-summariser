@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
+import { jsPDF } from "jspdf";
 import '../styles/Carousel.css';
-
-const textItems = [
-  'Welcome to our website!',
-  'Explore our latest products.',
-  'Stay tuned for exciting updates!',
-  // Add more text items as needed
-]
 
 const Carousel = ({data}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,7 +14,9 @@ const Carousel = ({data}) => {
   };
 
   const handleDownload = () => {
-    // Implement your download logic here (if applicable)
+    const doc = new jsPDF();
+    doc.text(data[currentIndex], 10, 10);
+    doc.save("stories.pdf");
   };
 
   return (
