@@ -10,7 +10,7 @@ const Carousel = ({data}) => {
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + data.length) % textItems.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + data.length) % data.length);
   };
 
   const handleDownload = () => {
@@ -23,7 +23,7 @@ const Carousel = ({data}) => {
     <div className="carousel-parent">
       <p className="text-item">{data[currentIndex]}</p>
       <button className="left-arrow" onClick={handlePrev}>&#8592;</button>
-      <button className="download-button"onClick={handleDownload}>Download</button>
+      <button className="download-button" onClick={handleDownload}>Download</button>
       <button className="right-arrow" onClick={handleNext}>&#8594;</button>
     </div>
   );
