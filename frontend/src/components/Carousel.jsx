@@ -64,8 +64,12 @@ const Carousel = ({data}) => {
     <div className="right-arrow" onClick={handleNext}>&#8594;</div>
     <div className="pagination">
       {data.user_stories.map((_, index) => (
-        <span key={index} className={`dot ${index === currentIndex ? 'active' : ''}`}></span>
-      ))}
+      <span 
+        key={index} 
+        className={`dot ${index === currentIndex ? 'active' : ''}`}
+        onClick={() => setCurrentIndex(index)}
+      ></span>
+    ))}
     </div>
   </div>
   );
