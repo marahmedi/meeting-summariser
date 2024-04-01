@@ -39,10 +39,23 @@
   color: #333;
 }
 
-.download-button,
 .download-all-button {
   margin-top: 20px;
   padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.download-button {
+  padding: 5px 10px;
   background-color: #007bff;
   color: #fff;
   border-radius: 5px;
@@ -60,6 +73,11 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  width: 100%;
+  position: absolute;
+  top: 300px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .dot {

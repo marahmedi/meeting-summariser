@@ -20,12 +20,14 @@ def upload_audio_file():
         if audio_file.filename == '':
             return jsonify({'error': 'No selected audio file'}), 400
 
+        if audio_file.filename.split('.')[-1] not in allowed_extensions:
+            return jsonify({'error': 'Invalid file format. Only audio and video files are allowed.'}), 400
+        
         # Replace 'audio_uploads' with your desired directory for audio files
         audio_file.save('./' + audio_file.filename)
         summary = summarise_audio(audio_file)
         print('Audio file saved successfully')
         
-
         user_stories = turn_summary_into_story(summary)
 
         if user_stories is None:
@@ -78,7 +80,7 @@ def turn_summary_into_story(summary):
         print(f"An error occurred in turn_summary_into_story: {e}")
         return None
 
-     # ayub's test user story summary
+allowed_extensions = {'mp3', 'wav', 'mp4', 'avi'}
 test_summary = """
         id: 1
         Title: Implement Caching Mechanism for Improved Performance
@@ -101,6 +103,41 @@ test_summary = """
         - The online ordering system should allow me to choose from a variety of toppings and crust styles.
         - The system should provide an estimated delivery time based on my location.
         - I should receive a confirmation email with the order details after completing the purchase.
+        id: 4
+        Title: Implement a chatbot for customer support
+        Description: As a customer support representative, I want to implement a chatbot on our website to assist users with common questions and issues.
+        Acceptance Criteria:
+        - The chatbot should be able to answer frequently asked questions about our products and services.
+        - The chatbot should provide users with relevant information based on their input.
+        - The chatbot should escalate complex issues to a human representative when necessary.
+        id: 5
+        Title: Create a mobile app for tracking fitness goals
+        Description: As a fitness enthusiast, I want to create a mobile app that allows users to set and track their fitness goals.
+        Acceptance Criteria:
+        - Users should be able to input their fitness goals and track their progress over time.
+        - The app should provide motivational messages and reminders to help users stay on track.
+        - Users should be able to share their progress with friends and social media.
+        id: 6
+        Title: Implement a recommendation engine for e-commerce platform
+        Description: As an e-commerce platform owner, I want to implement a recommendation engine that suggests products to users based on their browsing history and preferences.
+        Acceptance Criteria:
+        - The recommendation engine should analyze user behavior to generate personalized product recommendations.
+        - Users should be able to provide feedback on the recommendations to improve future suggestions.
+        - The recommendation engine should be scalable and able to handle a large number of users and products.
+        id: 7
+        Title: Develop a feature for real-time collaboration
+        Description: As a software developer, I want to develop a feature that allows multiple users to collaborate on a document in real-time.
+        Acceptance Criteria:
+        - Users should be able to see changes made by other collaborators in real-time.
+        - The feature should support multiple users editing the document simultaneously.
+        - The system should provide a revision history to track changes and allow users to revert to previous versions.
+        id: 8
+        Title: Create a dashboard for monitoring system performance
+        Description: As a system administrator, I want to create a dashboard that displays real-time performance metrics for our servers and applications.
+        Acceptance Criteria:
+        - The dashboard should provide an overview of CPU usage, memory consumption, and network traffic.
+        - Users should be able to set up alerts for performance thresholds and receive notifications when thresholds are exceeded.
+        - The dashboard should support customization to display specific metrics based on user preferences.
         """
 
 if __name__ == '__main__':
