@@ -50,9 +50,9 @@ const Carousel = ({data}) => {
     <div className="left-arrow" onClick={handlePrev}>&#8592;</div>
     <div className="text-item">
       <div key={data.user_stories[currentIndex].id}>
-        <h2>Title: {data.user_stories[currentIndex].title}</h2>
-        <p>Description {data.user_stories[currentIndex].description}</p>
-        <ul> Acceptance Criteria:
+        <h2><b>Title:</b> {data.user_stories[currentIndex].title}</h2>
+        <p><b>Description:</b> {data.user_stories[currentIndex].description}</p>
+        <ul> <b>Acceptance Criteria:</b>
           {data.user_stories[currentIndex].acceptance_criteria.map((criteria, index) => (
             <li key={index}> {criteria}</li>
           ))}
