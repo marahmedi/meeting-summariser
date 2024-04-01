@@ -1,3 +1,10 @@
+function_description = [
+    {
+        "name": "generate_user_story",
+        "description": "structure a user story with a role, action and benefit"
+    }
+]
+
 def abstract_summary_extraction(client, transcription):
     response = client.chat.completions.create(
         model="gpt-4",
