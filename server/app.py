@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import json
-
 from audio_processing.transcribe_audio import transcribe_audio
 from audio_processing.trim_audio import refactor_audio
 from openai_integration.openai_client import create_openai_client
@@ -24,13 +22,64 @@ def upload_audio_file():
 
         # Replace 'audio_uploads' with your desired directory for audio files
         audio_file.save('./' + audio_file.filename)
-        #summary = summarise_audio(audio_file)
-    
+        summary = summarise_audio(audio_file)
         print('Audio file saved successfully')
         
 
-            # Assume you have a single string containing user story information
-        summary = """
+        user_stories = turn_summary_into_story(summary)
+
+        if user_stories is None:
+            return jsonify({'error': 'An error occurred while turning the summary into a story'}), 500
+        
+        return jsonify({'user_stories': user_stories}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+ 
+def summarise_audio(audio_file):
+    try:
+        refactor_audio('./' + audio_file.filename, 'Audio_files')
+        client = create_openai_client()
+        transcription = transcribe_audio(client, './Audio_files')
+        summary = abstract_summary_extraction(client, transcription)
+        print(summary)
+        return summary
+    except Exception as e:
+        return str(e)
+    
+def turn_summary_into_story(summary):
+    try:
+        user_stories = []
+        user_story = {}
+        acceptance_criteria = []
+
+        for line in summary.split("\n"):
+            line = line.lstrip()  # Remove leading whitespace
+            if line.startswith("id:"):
+                if user_story:
+                    user_story["acceptance_criteria"] = acceptance_criteria
+                    user_stories.append(user_story)
+                user_story = {"id": int(line.replace("id:", "").strip())}
+                acceptance_criteria = []
+            elif line.startswith("Title:"):
+                user_story["title"] = line.replace("Title:", "").strip()
+            elif line.startswith("Description:"):
+                user_story["description"] = line.replace("Description:", "").strip()
+            elif line.startswith("-"):
+                acceptance_criteria.append(line.strip("- ").strip())
+
+        if user_story:
+            user_story["acceptance_criteria"] = acceptance_criteria
+            user_stories.append(user_story)
+
+        return user_stories
+
+    except Exception as e:
+        print(f"An error occurred in turn_summary_into_story: {e}")
+        return None
+
+     # ayub's test user story summary
+test_summary = """
         id: 1
         Title: Implement Caching Mechanism for Improved Performance
         Description: As a developer, I want to implement a caching mechanism within our web application. This will allow us to reduce page load times and enhance the overall user experience.
@@ -53,49 +102,6 @@ def upload_audio_file():
         - The system should provide an estimated delivery time based on my location.
         - I should receive a confirmation email with the order details after completing the purchase.
         """
-
-        user_stories = turn_summary_into_story(summary)
-        return jsonify({'user_stories': user_stories}), 200
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
- 
-def summarise_audio(audio_file):
-    try:
-        refactor_audio('./' + audio_file.filename, 'Audio_files')
-        client = create_openai_client()
-        transcription = transcribe_audio(client, './Audio_files')
-        summary = abstract_summary_extraction(client, transcription)
-        print(summary)
-        return summary
-    except Exception as e:
-        return str(e)
-    
-def turn_summary_into_story(summary):
-    user_stories = []
-    user_story = {}
-    acceptance_criteria = []
-
-    for line in summary.split("\n"):
-        line = line.lstrip()  # Remove leading whitespace
-        if line.startswith("id:"):
-            if user_story:
-                user_story["acceptance_criteria"] = acceptance_criteria
-                user_stories.append(user_story)
-            user_story = {"id": int(line.replace("id:", "").strip())}
-            acceptance_criteria = []
-        elif line.startswith("Title:"):
-            user_story["title"] = line.replace("Title:", "").strip()
-        elif line.startswith("Description:"):
-            user_story["description"] = line.replace("Description:", "").strip()
-        elif line.startswith("-"):
-            acceptance_criteria.append(line.strip("- ").strip())
-
-    if user_story:
-        user_story["acceptance_criteria"] = acceptance_criteria
-        user_stories.append(user_story)
-
-    return user_stories
 
 if __name__ == '__main__':
     app.run(debug=True)
