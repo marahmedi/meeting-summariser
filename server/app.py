@@ -1,7 +1,6 @@
 import glob
 import os
 
-import pyclamd
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from audio_processing.transcribe_audio import transcribe_audio
@@ -13,8 +12,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 MAX_FILE_SIZE = 20 * 1024 * 1024  # 20 MB
 
-# Initialize ClamAV client
-cd = pyclamd.ClamdUnixSocket()
+
 @app.route('/upload_audio', methods=['POST'])
 def upload_audio_file():
     try:
@@ -30,13 +28,6 @@ def upload_audio_file():
 
         if audio_file.content_length > MAX_FILE_SIZE:
             return jsonify({'error': 'File size exceeds the maximum limit.'}), 400
-
-        # Scan file for viruses
-        scan_results = cd.scan_stream(audio_file.read())
-
-        # If the file is clean, scan_results will be None
-        if scan_results is not None:
-            return jsonify({'error': 'File is infected'}), 400
 
         # Replace 'audio_uploads' with your desired directory for audio files
         audio_file.save('./' + audio_file.filename)
