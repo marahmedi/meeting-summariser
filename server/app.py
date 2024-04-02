@@ -1,3 +1,7 @@
+import glob
+import os
+
+import pyclamd
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from audio_processing.transcribe_audio import transcribe_audio
@@ -7,14 +11,15 @@ from openai_integration.summarisation import (abstract_summary_extraction)
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+MAX_FILE_SIZE = 20 * 1024 * 1024  # 20 MB
 
-
+# Initialize ClamAV client
+cd = pyclamd.ClamdUnixSocket()
 @app.route('/upload_audio', methods=['POST'])
 def upload_audio_file():
     try:
         if 'audio_file' not in request.files:
             return jsonify({'error': 'No audio file part'}), 400
-
         audio_file = request.files['audio_file']
         print(audio_file.filename)
         if audio_file.filename == '':
@@ -22,22 +27,33 @@ def upload_audio_file():
 
         if audio_file.filename.split('.')[-1] not in allowed_extensions:
             return jsonify({'error': 'Invalid file format. Only audio and video files are allowed.'}), 400
-        
+
+        if audio_file.content_length > MAX_FILE_SIZE:
+            return jsonify({'error': 'File size exceeds the maximum limit.'}), 400
+
+        # Scan file for viruses
+        scan_results = cd.scan_stream(audio_file.read())
+
+        # If the file is clean, scan_results will be None
+        if scan_results is not None:
+            return jsonify({'error': 'File is infected'}), 400
+
         # Replace 'audio_uploads' with your desired directory for audio files
         audio_file.save('./' + audio_file.filename)
-        summary = summarise_audio(audio_file)
+        summary = test_summary
         print('Audio file saved successfully')
-        
+
         user_stories = turn_summary_into_story(summary)
 
+        clear_directory('./Audio_files')
         if user_stories is None:
             return jsonify({'error': 'An error occurred while turning the summary into a story'}), 500
-        
+
         return jsonify({'user_stories': user_stories}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
- 
+
 def summarise_audio(audio_file):
     try:
         refactor_audio('./' + audio_file.filename, 'Audio_files')
@@ -48,7 +64,8 @@ def summarise_audio(audio_file):
         return summary
     except Exception as e:
         return str(e)
-    
+
+
 def turn_summary_into_story(summary):
     try:
         user_stories = []
@@ -79,6 +96,13 @@ def turn_summary_into_story(summary):
     except Exception as e:
         print(f"An error occurred in turn_summary_into_story: {e}")
         return None
+
+
+def clear_directory(directory_path):
+    files = glob.glob(f'{directory_path}/*')
+    for file in files:
+        os.remove(file)
+
 
 allowed_extensions = {'mp3', 'wav', 'mp4', 'avi'}
 test_summary = """
