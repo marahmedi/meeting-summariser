@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import UploadBox from './components/UploadBox'
-import Header from './components/Header'
 import Carousel from './components/Carousel'
 
 
 function App() {
   const [uploadComplete, setUploadComplete] = useState(false)
   const [responseData, setResponseData] = useState(null);
+  const [progress, setProgress] = useState(0);
   return (
     <div className="App">
       {!uploadComplete && 
         <>
-          <Header/>
           <UploadBox 
             setUploadComplete={setUploadComplete}
             setResponseData={setResponseData}
+            setProgress={setProgress}
+            progress={progress}
           />
         </>
       }
-      {uploadComplete && <Carousel data={responseData}/>}
+      {uploadComplete && progress && <Carousel data={responseData}/>}
     </div>
   )
 }

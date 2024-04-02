@@ -1,50 +1,86 @@
-.UploadBox{
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 2px;
-    border: 1px solid black;
-    background-color: white;
-    height: 10rem;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+.container{
+    font-family: Roboto Mono;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 100% of the viewport height */
+    margin: 0;
 }
 
-.image {
-    border-radius: 4px;
-    height: 100px;
-    width: 150px;
-    padding-left: 120px;
-    padding-top: 3px;
-}
-
-.ClickOrUpload {
-    font-family: 'Raleway', serif;
-    font-size: x-small;
+.upload-box {
+    width: 650px; /* Set your desired width */
+    height: 420px; /* Set your desired height */
+    background-color: #F8F8F8; /* Set your desired background color */
     text-align: center;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
+    
+}
+h3{
+    text-align: left;
+    font-weight: 900;
+    color: rgb(48, 47, 47);
+    margin-bottom: 8px;
+}
+#max-file-size{
+    text-align: left;
+    color: rgb(160, 160, 160);
+    font-size: 0.95rem;
+    font-weight: 300;
+    margin-top: 0;
+}
+.choose-file-btn {
+    position: relative;
+    margin-top: 2rem;
+    background-color: #EFECEC; /* Background color */
+    width: 143px;              /* Width */
+    height: 45px;              /* Height */
+    border-radius: 10px;       /* Border radius */
+    border: none;              /* No border */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow */
+    cursor: pointer;           /* Cursor pointer to indicate it's clickable */
+    display: inline-block;     /* Display as inline-block */
+    text-align: center;        /* Center text horizontally */
+    line-height: 45px;         /* Center text vertically */
+    color: #000;               /* Text color (adjust as needed) */
+    text-decoration: none;     /* Remove underline */
+    display: flex;            /* Use flexbox */
+    align-items: center;      /* Center items vertically */
+    justify-content: flex-start; /* Align items to the left */
 }
 
-.MaxFileSize {
-    font-family: 'Raleway', serif;
-    font-size: xx-small;
-    text-align: center;
+/* Optional: Hover effect */
+.choose-file-btn:hover {
+    background-color: #d5d2d2bd; /* Lighter background color on hover (adjust as needed) */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Increased box shadow on hover */
 }
-
-.UploadText{    
-    font-family: 'Raleway', serif;
-    font-size: x-small;
-    text-align: center;
+.choose-file-btn input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
     cursor: pointer;
-    &:hover {
-        text-decoration: underline;
-    }
+}
+.upload-text{
+    margin: 0;
+    font-size: 0.9rem;
+    padding-left: 25px;
+}
+.file-status {
+    width: 100%;
+    border-top: 3px solid rgb(228, 226, 226); /* Solid light gray border */
+    margin-top: 3rem; /* Optional: Add padding to the top */
+    font-size: 12px; /* Optional: Adjust font size */
+}
+.error-msg{
+    color: rgb(175, 73, 73);
+    margin-top: 4rem;
+    font-size: 1rem;
+    
 }
 
-.ErrorMessage {
-    color: red;
-    font-size: 1.2em;
-    font-weight: bold;
-    border: 1px solid red;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: auto;
-}
