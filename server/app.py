@@ -28,12 +28,12 @@ def upload_audio_file():
         summary = summarise_audio(audio_file)
         print('Audio file saved successfully')
         
-        user_stories = turn_summary_into_story(summary)
+        #user_stories = turn_summary_into_story(s)
 
-        if user_stories is None:
-            return jsonify({'error': 'An error occurred while turning the summary into a story'}), 500
+        # if user_stories is None:
+        #     return jsonify({'error': 'An error occurred while turning the summary into a story'}), 500
         
-        return jsonify({'user_stories': user_stories}), 200
+        return jsonify({'user_stories': summary}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
