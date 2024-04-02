@@ -1,0 +1,28 @@
+import unittest
+from app import summarise_audio, turn_summary_into_story
+
+class TestApp(unittest.TestCase):
+    def test_summarise_audio(self):
+        # Replace 'test_audio_file.wav' with the path to a real audio file for testing
+        audio_file = open('EarningsCall.wav', 'rb')
+        summary = summarise_audio(audio_file)
+        self.assertIsNotNone(summary)
+
+    def test_turn_summary_into_story(self):
+        summary = """
+        id: 1
+        Title: Test Title
+        Description: Test Description
+        Acceptance Criteria:
+        - Test Criteria 1
+        - Test Criteria 2
+        """
+        user_stories = turn_summary_into_story(summary)
+        self.assertEqual(len(user_stories), 1)
+        self.assertEqual(user_stories[0]['id'], 1)
+        self.assertEqual(user_stories[0]['title'], 'Test Title')
+        self.assertEqual(user_stories[0]['description'], 'Test Description')
+        self.assertEqual(user_stories[0]['acceptance_criteria'], ['Test Criteria 1', 'Test Criteria 2'])
+
+if __name__ == '__main__':
+    unittest.main()
