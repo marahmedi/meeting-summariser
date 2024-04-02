@@ -1,0 +1,106 @@
+.carousel-parent {
+  animation: fadeIn 1s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.carousel-parent:hover {
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.text-item {
+  margin: 0 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.text-item:hover {
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.left-arrow,
+.right-arrow {
+  cursor: pointer;
+  font-size: 2em;
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.left-arrow:hover,
+.right-arrow:hover {
+  color: #333;
+}
+
+.download-all-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.download-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.download-button:hover,
+.download-all-button:hover {
+  background-color: #0056b3;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  position: absolute;
+  top: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #007bff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
