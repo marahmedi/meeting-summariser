@@ -31,7 +31,7 @@ def upload_audio_file():
 
         # Replace 'audio_uploads' with your desired directory for audio files
         audio_file.save('./' + audio_file.filename)
-        summary = test_summary
+        summary = summarise_audio(audio_file)
         print('Audio file saved successfully')
 
         user_stories = turn_summary_into_story(summary)
