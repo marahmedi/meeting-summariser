@@ -1,3 +1,6 @@
+import glob
+import os
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from audio_processing.transcribe_audio import transcribe_audio
@@ -7,6 +10,8 @@ from openai_integration.summarisation import (abstract_summary_extraction)
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+MAX_FILE_SIZE = 20 * 1024 * 1024  # 20 MB
+allowed_extensions = {'mp3', 'wav', 'mp4', 'avi'}
 
 
 @app.route('/upload_audio', methods=['POST'])
@@ -22,22 +27,25 @@ def upload_audio_file():
 
         if audio_file.filename.split('.')[-1] not in allowed_extensions:
             return jsonify({'error': 'Invalid file format. Only audio and video files are allowed.'}), 400
-        
+
+        if audio_file.content_length > MAX_FILE_SIZE:
+            return jsonify({'error': 'File size exceeds the maximum limit.'}), 400
+
         # Replace 'audio_uploads' with your desired directory for audio files
         audio_file.save('./' + audio_file.filename)
         summary = summarise_audio(audio_file)
         print('Audio file saved successfully')
-        
-        #user_stories = turn_summary_into_story(s)
 
-        # if user_stories is None:
-        #     return jsonify({'error': 'An error occurred while turning the summary into a story'}), 500
-        
-        return jsonify({'user_stories': summary}), 200
+        user_stories = turn_summary_into_story(summary)
+
+        if user_stories is None:
+            return jsonify({'error': 'An error occurred while turning the summary into a story'}), 500
+        clear_directory('./Audio_files')
+        return jsonify({'user_stories': user_stories}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
- 
+
 def summarise_audio(audio_file):
     try:
         refactor_audio('./' + audio_file.filename, 'Audio_files')
@@ -48,7 +56,8 @@ def summarise_audio(audio_file):
         return summary
     except Exception as e:
         return str(e)
-    
+
+
 def turn_summary_into_story(summary):
     try:
         user_stories = []
@@ -80,7 +89,13 @@ def turn_summary_into_story(summary):
         print(f"An error occurred in turn_summary_into_story: {e}")
         return None
 
-allowed_extensions = {'mp3', 'wav', 'mp4', 'avi'}
+
+def clear_directory(directory_path):
+    files = glob.glob(f'{directory_path}/*')
+    for file in files:
+        os.remove(file)
+
+
 test_summary = """
         id: 1
         Title: Implement Caching Mechanism for Improved Performance
