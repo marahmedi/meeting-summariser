@@ -1,7 +1,32 @@
 function_description = [
     {
-        "name": "generate_user_story",
-        "description": "structure a user story with a role, action and benefit"
+        "type": "function",
+        "function":{
+            "name": "generateUserStories",
+            "description": "Extract user stories from transcription",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "id number"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "heading for user story"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "explain the user story with a role, action and reasoning for why the action is needed"
+                    },
+                    "acceptance criteria":{
+                        "type": "[string]",
+                        "description": "list of the criteria needed for the user story to be successfully implemented"
+                    }
+                }
+            }
+        }
+        
     }
 ]
 
@@ -10,6 +35,8 @@ def abstract_summary_extraction(client, transcription):
     response = client.chat.completions.create(
         model="gpt-4",
         temperature=0,
+        tools=function_description,
+        tool="generateUserStories",
         messages=[
             {
                 "role": "system",
@@ -24,7 +51,10 @@ def abstract_summary_extraction(client, transcription):
                 "content": transcription
             }
         ]
+
     )
+
+    
 
     return response.choices[0].message.content
 

@@ -12,7 +12,6 @@ const UploadBox = ({ setUploadComplete, setResponseData, setProgress, progress }
       uploadFile(selectedFile);
     }
   };
-
   const uploadFile = (fileToUpload) => {
     let progress = 0;
     const interval = setInterval(() => {
@@ -67,6 +66,7 @@ const UploadBox = ({ setUploadComplete, setResponseData, setProgress, progress }
             <LoadingBar fileName={fileName} progress={progress} />
           )}
           {errorMessage && <p className="error-msg">{errorMessage}</p>}
+          {progress == 100 && <p id="success">Generating user stories .</p>}
         </div>
       </div>
     </div>
