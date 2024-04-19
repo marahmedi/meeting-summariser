@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
+.user-edit {
+  width: auto; /* Allows the input to adjust its width based on content */
+  max-width: 100%; /* Ensures the input doesn't exceed the card component's width */
+  padding: 0.5rem; /* Adds some padding for better appearance */
+  border: 1px solid #ccc; /* Adds a border for better visibility */
+  border-radius: 4px; /* Rounds the corners of the input */
+  font-size: 0.9rem;
+  color: rgb(76, 75, 75);
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+  white-space: nowrap; /* Prevents the input from wrapping to the next line */
+  overflow: hidden;    /* Hides any overflow content */
+  text-overflow: ellipsis; /* Adds an ellipsis (...) when the text overflows the input */
+}

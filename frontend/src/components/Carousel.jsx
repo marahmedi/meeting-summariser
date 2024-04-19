@@ -64,13 +64,15 @@ const Carousel = ({ data }) => {
 
   return (
     <div className="carousel-parent">
-      <Actions
-        handleDownload={handleDownload}
-        handleEdit={handleEdit}
-        handleSave={handleSave}
-        editMode={editMode}
-        setEditMode={setEditMode}
-      />
+      <div className="actions-parent">
+        <Actions
+          handleDownload={handleDownload}
+          handleEdit={handleEdit}
+          handleSave={handleSave}
+          editMode={editMode}
+          setEditMode={setEditMode}
+        />
+      </div>
       <div className="left-arrow" onClick={handlePrev}>
         &#8592;
       </div>
@@ -97,20 +99,22 @@ const Carousel = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="download-all-button" onClick={handleDownloadAll}>
-        Download All
-      </div>
       <div className="right-arrow" onClick={handleNext}>
         &#8594;
       </div>
-      <div className="pagination">
-        {data.user_stories.map((_, index) => (
-          <span
-            key={index}
-            className={`dot ${index === currentIndex ? "active" : ""}`}
-            onClick={() => setCurrentIndex(index)}
-          ></span>
-        ))}
+      <div className="footer">
+        <div className="pagination">
+          {data.user_stories.map((_, index) => (
+            <span
+              key={index}
+              className={`dot ${index === currentIndex ? "active" : ""}`}
+              onClick={() => setCurrentIndex(index)}
+            ></span>
+          ))}
+        </div>
+        <div className="download-all-button" onClick={handleDownloadAll}>
+          Download All
+        </div>
       </div>
     </div>
   );

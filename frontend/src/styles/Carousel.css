@@ -1,20 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 .carousel-parent {
-  margin-top: 120px;
+  position: relative;
   font-family: Roboto Mono;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  padding-top: 35px;
+  padding: 10rem;
+}
+.actions-parent{
+  position: absolute;
+  top: 0;
+  padding-top: 10vh;
+  height: 6vh;
+  width: 17vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .text-item {
-  margin: 0 20px;
+ 
   padding: 3rem;
-  height: 20rem;
-  width: 40rem;
+  max-height: calc(100vh - 15vh - 6rem);
+  width: 40vw;
   background-color: rgb(247, 248, 250);
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -23,7 +32,7 @@
 .edit-text-item{
   margin: 0 20px;
   padding: 3rem;
-  height: 20rem;
+  max-height: calc(100vh - 15vh - 6rem);
   width: 40rem;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
@@ -38,7 +47,7 @@
 }
 
 #card-title{
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #333;
   padding-bottom: 1rem;
   border-bottom: solid 2px rgb(229, 229, 229);
@@ -64,6 +73,7 @@
 .left-arrow,
 .right-arrow {
   cursor: pointer;
+  margin: 2vw;
   font-size: 3em;
   color: #888;
   transition: color 0.3s ease;
@@ -73,7 +83,15 @@
 .right-arrow:hover {
   color: #333;
 }
-
+.footer {
+  position: absolute;
+  bottom: 0; /* Ensure the footer sticks to the bottom */
+  left: 0; /* Align with the left edge of the parent */
+  width: 100%; /* Occupy full width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .download-all-button {
   margin-top: 20px;
   padding: 10px 20px;
@@ -83,10 +101,7 @@
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s ease;
-  position: absolute;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
+
 }
 
 .download-button {
@@ -106,13 +121,7 @@
 
 .pagination {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  width: 100%;
-  position: absolute;
-  bottom: 185px;
-  left: 50%;
-  transform: translateX(-50%);
+  justify-content: center; 
 }
 
 .dot {
@@ -136,5 +145,17 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media only screen and (max-height: 680px) and (max-width: 500px) {
+  .carousel-parent {
+    font-size: 0.7rem;
+  }
+  #card-title{
+    font-size: 0.9rem;
+    color: #333;
+    padding-bottom: 1rem;
+    border-bottom: solid 2px rgb(229, 229, 229);
   }
 }
